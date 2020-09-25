@@ -1,6 +1,6 @@
 import app from './app';
 import "@babel/polyfill";
-import config from './config';
+import config from './config/config';
 
 const port = config.server.port;
 

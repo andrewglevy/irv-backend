@@ -39,7 +39,8 @@ export async function getElection(req, res) {
 
 export async function createElection(req, res) {
     try {
-        const checkData = await Election.findOne({ where: { id: req.body.id } });
+        console.log(`REQUEST: ${req}`);
+        const checkData = await Election.findOne({ where: { name: req.body.name } });
         if (checkData) {
             res.json({
                 message: "Already Exists",
@@ -103,4 +104,21 @@ export async function updateElections(req, res) {
 }
 
 
-
+export async function index (req, res) {
+    try {
+        const index = await Election.findAll()
+        if (index) {
+            res.json({
+                success: true,
+                message: "Elections Fetched Successfully",
+                data: index
+            });
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: "something went wrong"
+        });
+    }
+}
