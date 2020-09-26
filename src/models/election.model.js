@@ -22,6 +22,7 @@ export default function Election(sequelize, DataTypes) {
             allowNull: false,
             defaultValue: false,
         },
+        // if null, election will be closed manually
         dateToClose: {
             type: DataTypes.DATE,
             allowNull: true,
