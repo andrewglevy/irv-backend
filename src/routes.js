@@ -1,20 +1,20 @@
 import { Router } from 'express';
-const router = Router();
+const routes = Router();
 import '@babel/polyfill';
 import {
     createElection,
-    index
+    electionIndex
 //     getElection, 
 //     getElections, 
 //     deleteElection, 
 //     updateElections,
-} from '../controllers/elections.controller';
+} from './controllers/elections.controller';
 
 // router.post('/getElections', getElections);
 // router.post('/getElection', getElection);
 // router.delete('/removeElection', deleteElection);
 // router.put('/updateElection', updateElections);
-router.post('/create', createElection);
-router.get('/index', index);
+routes.post('/election/create', createElection);
+routes.get('/election/index', electionIndex);
 
-export default router;
+export default routes;
