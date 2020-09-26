@@ -2,7 +2,7 @@ import db from '../models/index'
 const Election = db.elections;
 // const Ballot = db.ballot;
 
-export async function index (req, res) {
+export async function electionIndex (req, res) {
     try {
         const index = await Election.findAll()
         if (index) {

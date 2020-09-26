@@ -3,7 +3,7 @@ const routes = Router();
 import '@babel/polyfill';
 import {
     createElection,
-    index
+    electionIndex
 //     getElection, 
 //     getElections, 
 //     deleteElection, 
@@ -15,6 +15,6 @@ import {
 // router.delete('/removeElection', deleteElection);
 // router.put('/updateElection', updateElections);
 routes.post('/election/create', createElection);
-routes.get('/election/index', index);
+routes.get('/election/index', electionIndex);
 
 export default routes;
