@@ -4,7 +4,8 @@ import Sequelize from 'sequelize';
 import Election from './election.model';
 import Ballot from './ballot.model';
 import Candidate from './candidate.model';
-import Selections from './selection.model';
+import Selection from './selection.model';
+import Voter from './voter.model';
 
 const user = config.database.db_user;
 const pass = config.database.db_pass;
@@ -24,7 +25,8 @@ const db = {
 db.elections = Election(sequelize, Sequelize);
 db.ballots = Ballot(sequelize, Sequelize);
 db.candidates = Candidate(sequelize, Sequelize);
-db.selections = Selections(sequelize, Sequelize);
+db.selections = Selection(sequelize, Sequelize);
+db.voters = Voter(sequelize, Sequelize);
 
 // associations
 
@@ -41,6 +43,10 @@ db.candidates.hasMany(db.selections, { as: 'selections' });
 db.selections.belongsTo(db.candidates, { foreignKey: 'candidateId' });
 db.ballots.hasMany(db.selections, { as: 'selections' });
 db.selections.belongsTo(db.ballots, { foreignKey: 'ballotId' });
+
+// voters
+db.elections.hasMany(db.voters, { as: 'voters' });
+db.voters.belongsTo(db.elections, { foreignKey: 'electionId' });
 
 
 
