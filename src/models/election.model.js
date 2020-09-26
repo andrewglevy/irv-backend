@@ -22,11 +22,11 @@ export default function Election(sequelize, DataTypes) {
             allowNull: false,
             defaultValue: false,
         },
-        autoClose: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false,
-        },
+        dateToClose: {
+            type: DataTypes.DATE,
+            allowNull: true,
+
+        }
 
     });
 }
