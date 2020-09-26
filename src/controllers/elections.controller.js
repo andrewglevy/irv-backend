@@ -21,6 +21,34 @@ export async function index (req, res) {
     }
 }
 
+export async function createElection(req, res) {
+    try {
+        console.log(`REQUEST: ${req}`);
+        const checkData = await Election.findOne({ where: { name: req.body.name } });
+        if (checkData) {
+            res.json({
+                message: "Already Exists",
+                data: checkData
+            });
+        } else {
+            const createData = await Election.create(req.body, { fields: ['name'] });
+            if (createData) {
+                res.json({
+                    success: true,
+                    message: "Election Created Successfully",
+                    data: createData
+                });
+            }
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: "Something went wrong!"
+        });
+    }
+}
+
 // import Election from '../models/election';
 
 // export async function getElections(req, res) {
@@ -50,34 +78,6 @@ export async function index (req, res) {
 //                 message: "Election fetch Successfull",
 //                 data: createData
 //             });
-//         }
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({
-//             success: false,
-//             message: "Something went wrong!"
-//         });
-//     }
-// }
-
-// export async function createElection(req, res) {
-//     try {
-//         console.log(`REQUEST: ${req}`);
-//         const checkData = await Election.findOne({ where: { name: req.body.name } });
-//         if (checkData) {
-//             res.json({
-//                 message: "Already Exists",
-//                 data: checkData
-//             });
-//         } else {
-//             const createData = await Election.create(req.body, { fields: ['name'] });
-//             if (createData) {
-//                 res.json({
-//                     success: true,
-//                     message: "Election Created Successfully",
-//                     data: createData
-//                 });
-//             }
 //         }
 //     } catch (err) {
 //         console.log(err);
