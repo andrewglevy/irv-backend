@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 // import morgan from 'morgan';
 
 //Importing Routes
-import ElectionRoutes from './routes/election';
+import routes from './routes';
 
 const app = express();
 
@@ -21,6 +21,6 @@ app.use(bodyParser.urlencoded({limit: '50mb','extended': 'true'}));
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 
 //routes
-app.use('/api/election', ElectionRoutes)
+app.use('/api', routes)
 
 export default app;
