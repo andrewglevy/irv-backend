@@ -17,6 +17,7 @@ export default function Voter(sequelize, DataTypes) {
             // only exists if election.emailBallots === true, else voter will use election code
             type: DataTypes.STRING,
             allowNull: true,
+            unique: true
         }
     });
 }

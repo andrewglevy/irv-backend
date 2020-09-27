@@ -16,6 +16,7 @@ export default function Election(sequelize, DataTypes) {
         electionCode: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         emailBallots: {
             type: DataTypes.BOOLEAN,
