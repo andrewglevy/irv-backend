@@ -9,10 +9,10 @@ export default class Code {
     getProperty() { return this.property }
     getLength() { return this.len }
 
-    makeCode(len) {
+    makeCode() {
         const charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         let code = '';
-        for (let i = 0; i < len; i++) {
+        for (let i = 0; i < this.getLength(); i++) {
             code += charSet.charAt(Math.floor(Math.random() * charSet.length));
         }
         return code;
@@ -21,17 +21,17 @@ export default class Code {
     async isDuplicate(code) {
         let checkData;
         try {
-            checkData = await this.table.findOne({ where: { [this.property]: code } });
+            checkData = await this.table.findOne({ where: { [this.getProperty()]: code } });
         } catch (err) {
             console.log(err);
         }
         return checkData ? false : true;
     }
 
-    async addCode(len) {
+    async addCode() {
         let duplicate, code;
         do {
-            code = this.makeCode(len)
+            code = this.makeCode(this.getLength())
             duplicate = await this.isDuplicate(code);
         } while (duplicate);
         return code;
