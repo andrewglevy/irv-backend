@@ -13,6 +13,11 @@ export default function Election(sequelize, DataTypes) {
             allowNull: false,
             defaultValue: true,
         },
+        anonymous: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true,
+        },
         electionCode: {
             type: DataTypes.STRING,
             allowNull: false,
