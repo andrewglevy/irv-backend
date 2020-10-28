@@ -15,6 +15,7 @@ const host = config.server.hostname;
 const sequelize = new Sequelize(schema, user, pass, {
     host,
     dialect: 'mysql',
+    logging: false,
 })
 
 const db = {
