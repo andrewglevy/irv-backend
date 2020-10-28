@@ -5,6 +5,10 @@ export default class Code {
         this.len = len;
     }
 
+    getTable() { return this.table }
+    getProperty() { return this.property }
+    getLength() { return this.len }
+
     makeCode(len) {
         const charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         let code = '';
