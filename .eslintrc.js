@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = { 
     "env": {
         
         "node": true,
@@ -7,6 +7,6 @@ module.exports = {
     "extends": "eslint:recommended",
     "parserOptions": {
       "sourceType": "module",
-      "ecmaVersion": "2017",
+      "ecmaVersion": 11,
     }
 }
