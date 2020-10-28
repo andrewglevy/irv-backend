@@ -19,21 +19,25 @@ export default class Code {
     }
 
     async isDuplicate(code) {
-        let checkData;
         try {
-            checkData = await this.table.findOne({ where: { [this.getProperty()]: code } });
+            const checkData = await this.getTable().findOne({ where: { [this.getProperty()]: [code] } });
+            if (checkData) return true;
+            return false;
         } catch (err) {
             console.log(err);
         }
-        return checkData ? false : true;
     }
 
     async addCode() {
         let duplicate, code;
-        do {
-            code = this.makeCode(this.getLength())
-            duplicate = await this.isDuplicate(code);
-        } while (duplicate);
-        return code;
+        try {
+            do {
+                code = this.makeCode(this.getLength())
+                duplicate = await this.isDuplicate(code);
+            } while (duplicate);
+            return code;
+        } catch (err) {
+            console.log(err);
+        }
     }
 }
