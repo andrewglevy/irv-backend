@@ -42,8 +42,8 @@ describe('CodeService', () => {
             const allCharsLetters = () => {
                 for (let char of sixLetterCode) {
                     if(!'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.includes(char)) return false;
-                    return true;
                 }
+                return true;
             }
             expect(sixLetterCode.length).toEqual(6)
             expect(allCharsLetters()).toBe(true);
