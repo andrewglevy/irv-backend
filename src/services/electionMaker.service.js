@@ -1,23 +1,30 @@
 export default class ElectionMaker {
-
     constructor(body, momentInstance) {
         this.body = body;
         this.moment = momentInstance
     }
 
     formatElectionFields() {
-        const dateToClose = this.body.dateToClose;
-    
-        if (dateToClose && !this.moment(dateToClose).isValid()) {
-            return new Error('Date to close election is not valid');
+
+        const closingDate = (date) => {
+            if (!date) return null;
+            const dateIsValid = this.moment(date).isValid();
+            if (dateIsValid) return this.moment(date);
+            throw new Error('Date is not valid');
         }
-        return {
-            dateToClose: this.moment(dateToClose).format("YYYY-MM-DD HH:mm:ss") || null,
+
+        const dateToClose = closingDate(this.body.dateToClose);
+        console.log(dateToClose);
+
+        const electionObj = {
+            dateToClose,
             name: this.body.name,
             creator: this.body.creator,
             open: this.body.open,
             emailBallots: this.body.emailBallots,
             anonymous: this.body.anonymous || true,
         }
+
+        return electionObj;
     }
 }
