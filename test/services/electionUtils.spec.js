@@ -8,14 +8,8 @@ describe('Election utils', () => {
             name,
             creator,
             emailBallots: false,
-            irrelevantData:'The mitochondria is the powerhouse of the cell!'
+            irrelevantData: 'The mitochondria is the powerhouse of the cell!'
         }
-        beforeEach(() => {
-            input.name = name;
-            input.creator = creator;
-            input.emailBallots = false;
-            input.irrelevantData = 'The mitochondria is the powerhouse of the cell!'
-        });
         it('should correctly create a new object based on the object it receives', () => {
             const electionObject = formatElectionFields(input);
             const expectedResult = {
