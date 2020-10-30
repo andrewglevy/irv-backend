@@ -1,5 +1,9 @@
 export default function Voter(sequelize, DataTypes) {
     return sequelize.define('voters', {
+        id: {
+            type: DataTypes.STRING,
+            primaryKey: true
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: true,
