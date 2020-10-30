@@ -1,5 +1,6 @@
 import CodeMaker from '../../src/services/codeMaker';
 import db from '../../src/models/index';
+import { v4 as uuid } from 'uuid'
 
 const votersTable = db.voters;
 const codeInstance = new CodeMaker(votersTable, 'voterCode', 6)
@@ -18,11 +19,13 @@ describe('CodeMaker service', () => {
     describe('isDuplicate()', () => {
         beforeAll(async done => {
             await votersTable.create({
+                id: uuid(),
                 name: 'George',
                 email: 'george@example.com',
                 voterCode: 'QWERTY'
             });
             await votersTable.create({
+                id: uuid(),
                 name: 'Paul',
                 email: 'paul@example.com',
                 voterCode: 'YTREWQ',

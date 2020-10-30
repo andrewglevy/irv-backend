@@ -1,6 +1,7 @@
 import db from '../models/index'
 import CodeMaker from '../services/codeMaker';
 import { formatElectionFields } from '../services/electionUtils';
+import { v4 as uuid } from 'uuid'
 
 const ElectionTable = db.elections;
 // const CandidateTable = db.candidate;
@@ -28,6 +29,7 @@ export async function createElection(req, res) {
         const codeLength = 6;
         const codeMaker = new CodeMaker(ElectionTable, electionCodeProp, codeLength);
         const election = formatElectionFields(req.body);
+        election.id = uuid();
         election.electionCode = await codeMaker.addCode();
 
         const newElection = await ElectionTable.create(election);

@@ -1,5 +1,9 @@
 export default function Election(sequelize, DataTypes) {
     return sequelize.define('elections', {
+        id: {
+            type: DataTypes.STRING,
+            primaryKey: true
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
