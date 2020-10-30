@@ -1,10 +1,10 @@
-import CodeMaker from '../../src/services/codeMaker.service';
+import CodeMaker from '../../src/services/codeMaker';
 import db from '../../src/models/index';
 
 const votersTable = db.voters;
 const codeInstance = new CodeMaker(votersTable, 'voterCode', 6)
 
-describe('Code service', () => {
+describe('CodeMaker service', () => {
     beforeAll(async done => {
         await db.sequelize.sync({ force: true })
         done();

@@ -1,4 +1,4 @@
-export default class Code {
+export default class CodeMaker {
     constructor(table, property, len) {
         this.table = table;
         this.property = property;
