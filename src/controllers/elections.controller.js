@@ -34,16 +34,12 @@ export async function createElection(req, res) {
         electionFields.electionCode = await codeMaker.addCode();
 
         const newElection = await ElectionTable.build(electionFields);
-
-        console.log('BUILT ELECTION OBJECT: ', newElection)
-        const resData = await newElection.save();
-
-        console.log("SavedElection: ", resData);
+        const data = await newElection.save();
 
         res.json({
             success: true,
             message: 'Election created successfully',
-            data: resData,
+            data,
         });
     } catch (err) {
         console.log(err);
