@@ -25,22 +25,25 @@ export async function createElection(req, res) {
     try {
         console.log('REQUEST: ', req.body);
 
+        // make all this into service class?
         const electionCodeProp = 'electionCode';
         const codeLength = 6;
         const codeMaker = new CodeMaker(ElectionTable, electionCodeProp, codeLength);
-        const election = formatElectionFields(req.body);
-        election.id = uuid();
-        election.electionCode = await codeMaker.addCode();
+        const electionFields = formatElectionFields(req.body);
+        electionFields.id = uuid();
+        electionFields.electionCode = await codeMaker.addCode();
 
-        const newElection = await ElectionTable.create(election);
-        // const electionId = newElection.id;
+        const newElection = await ElectionTable.build(electionFields);
 
-        console.log("NEW ELECTION: ", newElection)
+        console.log('BUILT ELECTION OBJECT: ', newElection)
+        const resData = await newElection.save();
+
+        console.log("SavedElection: ", resData);
 
         res.json({
             success: true,
             message: 'Election created successfully',
-            data: newElection,
+            data: resData,
         });
     } catch (err) {
         console.log(err);
