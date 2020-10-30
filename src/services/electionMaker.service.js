@@ -4,7 +4,7 @@ export default class ElectionMaker {
         this.moment = momentInstance
     }
 
-    closingDate(date) {
+    formatClosingDate(date) {
         if (!date) return null;
         const dateIsValid = this.moment(date).isValid();
         if (dateIsValid) return this.moment(date).format('YYYY-MM-DD HH:mm:ss');
@@ -12,7 +12,7 @@ export default class ElectionMaker {
     }
 
     formatElectionFields() {
-        const dateToClose = this.closingDate(this.body.dateToClose);
+        const dateToClose = this.formatClosingDate(this.body.dateToClose);
         console.log(dateToClose);
 
         const electionObj = {
