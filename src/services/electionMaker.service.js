@@ -9,7 +9,7 @@ export default class ElectionMaker {
         const closingDate = (date) => {
             if (!date) return null;
             const dateIsValid = this.moment(date).isValid();
-            if (dateIsValid) return this.moment(date);
+            if (dateIsValid) return this.moment(date).format('YYYY-MM-DD HH:mm:ss');
             throw new Error('Date is not valid');
         }
 
