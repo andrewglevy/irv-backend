@@ -1,7 +1,6 @@
 import db from '../models/index'
-import moment from 'moment';
-import CodeMaker from '../services/codeMaker.service';
-import ElectionMaker from '../services/electionMaker.service';
+import CodeMaker from '../services/codeMaker';
+import { formatElectionFields } from '../services/electionUtils';
 
 const ElectionTable = db.elections;
 // const CandidateTable = db.candidate;
@@ -9,6 +8,9 @@ const ElectionTable = db.elections;
 
 
 export async function createElection(req, res) {
+    // TODO check for correct date format for dateToClose in validation, 
+    // and check that the date is in the future.
+
     // req params:
     // name: string
     // creator: string
@@ -25,15 +27,13 @@ export async function createElection(req, res) {
         const electionCodeProp = 'electionCode';
         const codeLength = 6;
         const codeMaker = new CodeMaker(ElectionTable, electionCodeProp, codeLength);
-        const electionMaker = new ElectionMaker(req.body, moment);
-        const election = electionMaker.formatElectionFields();
+        const election = formatElectionFields(req.body);
         election.electionCode = await codeMaker.addCode();
 
         const newElection = await ElectionTable.create(election);
         // const electionId = newElection.id;
 
         console.log("NEW ELECTION: ", newElection)
-
 
         res.json({
             success: true,

@@ -1,4 +1,4 @@
-import CodeMaker from '../../src/services/codeMaker.service';
+import CodeMaker from '../../src/services/codeMaker';
 import db from '../../src/models/index';
 
 const votersTable = db.voters;
