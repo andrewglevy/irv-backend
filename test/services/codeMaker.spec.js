@@ -1,8 +1,8 @@
-import Code from '../../src/services/code.service';
+import CodeMaker from '../../src/services/codeMaker.service';
 import db from '../../src/models/index';
 
 const votersTable = db.voters;
-const codeInstance = new Code(votersTable, 'voterCode', 6)
+const codeInstance = new CodeMaker(votersTable, 'voterCode', 6)
 
 describe('Code service', () => {
     beforeAll(async done => {

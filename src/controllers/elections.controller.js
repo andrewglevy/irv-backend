@@ -1,45 +1,45 @@
 import db from '../models/index'
-const Election = db.elections;
-// const Ballot = db.ballot;
+import moment from 'moment';
+import CodeMaker from '../services/codeMaker.service';
+import ElectionMaker from '../services/electionMaker.service';
 
-export async function electionIndex (req, res) {
-    try {
-        const index = await Election.findAll()
-        if (index) {
-            res.json({
-                success: true,
-                message: "Elections Fetched Successfully",
-                data: index
-            });
-        }
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            success: false,
-            message: "something went wrong"
-        });
-    }
-}
+const ElectionTable = db.elections;
+// const CandidateTable = db.candidate;
+// const VoterTable = db.voter;
+
 
 export async function createElection(req, res) {
+    // req params:
+    // name: string
+    // creator: string
+    // open: bool
+    // emailBallots: bool
+    // ?dateToClose: string
+    // ?voters: {?name, ?email}
+    // candidates: [string]
+    // anonymous: bool
+
     try {
-        console.log(`REQUEST: ${req}`);
-        const checkData = await Election.findOne({ where: { name: req.body.name } });
-        if (checkData) {
-            res.json({
-                message: "Already Exists",
-                data: checkData
-            });
-        } else {
-            const createData = await Election.create(req.body, { fields: ['name'] });
-            if (createData) {
-                res.json({
-                    success: true,
-                    message: "Election Created Successfully",
-                    data: createData
-                });
-            }
-        }
+        console.log('REQUEST: ', req.body);
+
+        const electionCodeProp = 'electionCode';
+        const codeLength = 6;
+        const codeMaker = new CodeMaker(ElectionTable, electionCodeProp, codeLength);
+        const electionMaker = new ElectionMaker(req.body, moment);
+        const election = electionMaker.formatElectionFields();
+        election.electionCode = await codeMaker.addCode();
+
+        const newElection = await ElectionTable.create(election);
+        // const electionId = newElection.id;
+
+        console.log("NEW ELECTION: ", newElection)
+
+
+        res.json({
+            success: true,
+            message: 'Election created successfully',
+            data: newElection,
+        });
     } catch (err) {
         console.log(err);
         res.status(500).json({
@@ -49,26 +49,6 @@ export async function createElection(req, res) {
     }
 }
 
-// import Election from '../models/election';
-
-// export async function getElections(req, res) {
-//     try {
-//         const getData = await Election.findAll(req.body)
-//         if (getData) {
-//             res.json({
-//                 success: true,
-//                 message: "Election Fetch Successful",
-//                 data: getData
-//             });
-//         }
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({
-//             success: false,
-//             message: "something went wrong"
-//         });
-//     }
-// }
 // export async function getElection(req, res) {
 //     try {
 //         const createData = await Election.findOne({ where: req.body });
@@ -125,5 +105,3 @@ export async function createElection(req, res) {
 //         });
 //     }
 // }
-
-

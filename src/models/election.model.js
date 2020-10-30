@@ -13,6 +13,11 @@ export default function Election(sequelize, DataTypes) {
             allowNull: false,
             defaultValue: true,
         },
+        anonymous: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true,
+        },
         electionCode: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -24,6 +29,7 @@ export default function Election(sequelize, DataTypes) {
             defaultValue: false,
         },
         // if null, election will be closed manually
+        // save in utc
         dateToClose: {
             type: DataTypes.DATE,
             allowNull: true,
