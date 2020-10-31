@@ -2,7 +2,7 @@ import db from '../models/index'
 import CodeMaker from '../services/codeMaker';
 import { formatElectionFields } from '../services/electionUtils';
 import { v4 as uuid } from 'uuid';
-import { codeProperty } from '../services/props';
+import { codeProperty } from '../lib/props';
 
 const ElectionTable = db.elections;
 // const CandidateTable = db.candidate;
