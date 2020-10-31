@@ -5,7 +5,7 @@ import db from './models/index';
 
 const port = config.server.port;
 
-async function main() {
+const main = async () => {
 
    try {
       await db.sequelize.sync({ force: true })
@@ -13,7 +13,7 @@ async function main() {
       console.log(`Error connectiong to database: ${err}`)
    }
 
-   await app.listen(port);
+   app.listen(port);
    console.log(`Server running on ${port}`);
 }
 main();
