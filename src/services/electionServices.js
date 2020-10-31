@@ -10,7 +10,7 @@ export const electionFactory = async (tableInstance, body) => {
     return await tableInstance.build(electionFields);
 }
 
-const formatElectionFields = (body) => {
+export const formatElectionFields = (body) => {
     const electionObj = {
         dateToClose: body.dateToClose,
         name: body.name,
