@@ -1,4 +1,6 @@
 export const codeProperty = {
-    ElectionTable: 'electionCode',
+    elections: 'electionCode',
     VoterTable: 'voterCode',
 }
+
+export const codeLength = 6;

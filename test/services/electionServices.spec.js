@@ -1,6 +1,6 @@
 import { formatElectionFields } from '../../src/services/electionUtils';
 
-describe('Election utils', () => {
+describe('Election services', () => {
     describe('formatElectionFields()', () => {
         const name = 'Mayoral election for Dinosaur, CO';
         const creator = 'Stegosaurus Jones';

@@ -1,10 +1,11 @@
 import db from '../models/index'
-import CodeMaker from '../services/codeMaker';
-import { formatElectionFields } from '../services/electionUtils';
-import { v4 as uuid } from 'uuid';
-import { codeProperty } from '../lib/props';
+import { electionFactory } from  '../services/electionServices';
+// import CodeMaker from '../services/codeMaker';
+// import { formatElectionFields } from '../services/electionUtils';
+// import { v4 as uuid } from 'uuid';
+// import { codeProperty } from '../lib/props';
 
-const ElectionTable = db.elections;
+const electionTable = db.elections;
 // const CandidateTable = db.candidate;
 // const VoterTable = db.voter;
 
@@ -25,15 +26,7 @@ export async function createElection(req, res) {
 
     try {
         console.log('REQUEST: ', req.body);
-
-        // make all this into service class?
-        const codeLength = 6;
-        const codeMaker = new CodeMaker(ElectionTable, codeProperty.ElectionTable, codeLength);
-        const electionFields = formatElectionFields(req.body);
-        electionFields.id = uuid();
-        electionFields.electionCode = await codeMaker.addCode();
-
-        const newElection = await ElectionTable.build(electionFields);
+        const newElection = await electionFactory(electionTable, req.body)
         const data = await newElection.save();
 
         res.json({
