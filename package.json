@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run clear-dist && babel src --out-dir dist/src",
     "clear-dist": "rm -rf dist",
-    "dev": "NODE_ENV=devnpm run build && nodemon src/server.js --exec babel-node",
+    "dev": "NODE_ENV=dev npm run build && nodemon src/server.js --exec babel-node",
     "start": "node dist/src/server.js",
     "test": "npm run build && babel test --out-dir dist/test && jest dist/test --verbose --runInBand"
   },
