@@ -11,15 +11,12 @@ const electionTable = db.elections;
 
 
 export async function createElection(req, res) {
-    // TODO check for correct date format for dateToClose in validation, 
-    // and check that the date is in the future.
-
+   
     // req params:
     // name: string
     // creator: string
     // open: bool
     // emailBallots: bool
-    // ?dateToClose: string
     // ?voters: {?name, ?email}
     // candidates: [string]
     // anonymous: bool

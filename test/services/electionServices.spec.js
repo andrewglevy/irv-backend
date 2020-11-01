@@ -25,7 +25,6 @@ describe('Election services', () => {
                 name,
                 creator,
                 emailBallots: false,
-                dateToClose: undefined,
                 open: undefined,
                 anonymous: true,
             }
