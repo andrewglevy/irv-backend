@@ -1,6 +1,15 @@
-import { formatElectionFields } from '../../src/services/electionUtils';
+import { electionFactory, formatElectionFields } from '../../src/services/electionServices';
+import db from '../../src/models/index';
 
 describe('Election services', () => {
+    beforeAll(async done => {
+        await db.sequelize.sync({ force: true })
+        done();
+    });
+    afterAll(done => {
+        db.sequelize.close();
+        done();
+    });
     describe('formatElectionFields()', () => {
         const name = 'Mayoral election for Dinosaur, CO';
         const creator = 'Stegosaurus Jones';
@@ -20,7 +29,28 @@ describe('Election services', () => {
                 open: undefined,
                 anonymous: true,
             }
-            expect(electionObject).toMatchObject(expectedResult)
+            expect(electionObject).toStrictEqual(expectedResult)
         })
-    })
+    });
+    describe('electionFactory()', () => {
+        const reqBody = {
+            name: 'Presidental Election',
+            creator: 'James Madison',
+            open: false,
+            emailBallots: false,
+            anonymous: true,
+        }
+        it('should create an instance of the election model with the correct properties', async done => {
+            const result = await electionFactory(db.elections, reqBody);
+            const expectedResult = {
+                name: 'Presidental Election',
+                creator: 'James Madison',
+                open: false,
+                emailBallots: false,
+                anonymous: true,
+            }
+            expect(result.dataValues).toMatchObject(expectedResult);
+            done();
+        });
+    });
 });
